@@ -1,0 +1,20 @@
+/* Add styles for RTL text */
+.rtl-text {
+  direction: rtl;
+  text-align: right;
+}
+
+.rtl-text::before,
+.rtl-text::after {
+  direction: rtl;
+}
+
+/* Ensure lists are RTL */
+.rtl-text ul,
+.rtl-text ol,
+.rtl-text li,
+.rtl-text .notion-toggle,
+.rtl-text .notion-toggle-content {
+  direction: rtl;
+  text-align: right;
+}

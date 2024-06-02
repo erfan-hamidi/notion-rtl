@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "RTL Notion Persian Text",
+  "version": "1.0",
+  "description": "Applies RTL direction to Persian texts in Notion.",
+  "permissions": [
+    "activeTab"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://www.notion.so/*"],
+      "css": ["style.css"],
+      "js": ["content.js"]
+    }
+  ]
+}
