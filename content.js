@@ -40,6 +40,14 @@ function applyRtlToPersianText() {
       }
     }
   });
+  // Force math elements to LTR by setting dir="ltr"
+  const mathElements = document.querySelectorAll('.katex, .notion-text-equation-token');
+  mathElements.forEach(elem => {
+    elem.setAttribute('dir', 'ltr');
+    elem.style.direction = 'ltr';
+    elem.style.textAlign = 'left';
+    elem.style.unicodeBidi = 'bidi-override';
+  });
 }
 
 // Run the function on page load
