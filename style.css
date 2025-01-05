@@ -14,7 +14,8 @@
 .rtl-text ol,
 .rtl-text li,
 .rtl-text .notion-toggle,
-.rtl-text .notion-toggle-content {
+.rtl-text .notion-toggle-content,
+.rtl-text .pseudoBefore {
   direction: rtl;
   text-align: right;
 }

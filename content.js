@@ -22,6 +22,24 @@ function applyRtlToPersianText() {
       element.classList.remove('rtl-text');
     }
   });
+  
+  // Apply RTL/LTR on numbered list blocks and pseudoBefore element (which shows the list number)
+  const numberedListElements = document.querySelectorAll('.notion-numbered_list-block');
+  numberedListElements.forEach(element => {
+    if (persianRegex.test(element.textContent)) {
+      const pseudoBefore = element.querySelector('.pseudoBefore');
+      if (pseudoBefore) {
+        pseudoBefore.style.direction = 'rtl';
+        pseudoBefore.style.textAlign = 'right';
+      }      
+    } else {
+      const pseudoBefore = element.querySelector('.pseudoBefore');
+      if (pseudoBefore) {
+        pseudoBefore.style.direction = 'ltr';
+        pseudoBefore.style.textAlign = 'left';
+      }
+    }
+  });
 }
 
 // Run the function on page load
