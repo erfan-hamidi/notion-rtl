@@ -12,7 +12,7 @@ A Chrome extension that automatically applies RTL (Right-to-Left) direction to P
 
 1. Clone this repository or download the ZIP file.
    ```bash
-   git clone https://github.com/your-username/rtl-notion-persian-text.git
+   git clone https://github.com/erfan-hamidi/rtl-notion-persian-text.git
 
 ## آموزش نصب فارسی
 1. دانلود فایل‌های افزونه
