@@ -9,7 +9,6 @@
   "content_scripts": [
     {
       "matches": ["*://www.notion.so/*"],
-      "css": ["style.css"],
       "js": ["content.js"]
     }
   ]

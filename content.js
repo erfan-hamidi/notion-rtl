@@ -1,3 +1,16 @@
+// Throttle the applyRtlToPersianText function to run at most once every 500ms,
+// preventing performance lag during rapid DOM changes.
+let rtlApplyTimeout = null;
+
+function applyRtlToPersianTextThrottled() {
+  if (rtlApplyTimeout) {
+    clearTimeout(rtlApplyTimeout);
+  }
+  rtlApplyTimeout = setTimeout(() => {
+    applyRtlToPersianText();
+    rtlApplyTimeout = null;
+  }, 500);
+}
 function applyRtlToPersianText() {
   const persianRegex = /[\u0600-\u06FF]/;
   const elements = document.querySelectorAll(
@@ -15,11 +28,9 @@ function applyRtlToPersianText() {
     if (persianRegex.test(element.textContent)) {
       element.style.direction = 'rtl';
       element.style.textAlign = 'right';
-      element.classList.add('rtl-text');
     } else {
       element.style.direction = 'ltr';
       element.style.textAlign = 'left';
-      element.classList.remove('rtl-text');
     }
   });
   
@@ -40,6 +51,8 @@ function applyRtlToPersianText() {
       }
     }
   });
+
+
   // Force math elements to LTR by setting dir="ltr"
   const mathElements = document.querySelectorAll('.katex, .notion-text-equation-token');
   mathElements.forEach(elem => {
@@ -48,11 +61,32 @@ function applyRtlToPersianText() {
     elem.style.textAlign = 'left';
     elem.style.unicodeBidi = 'bidi-override';
   });
+
+
+// Adjust border and padding for RTL layout in quote blocks
+  const quoteBlocks = document.querySelectorAll('.notion-quote-block blockquote');
+  quoteBlocks.forEach(block => {
+    const quoteContent = block.querySelector('div:first-of-type');
+    if (!quoteContent) return;
+
+    if (persianRegex.test(quoteContent.textContent)) {
+      quoteContent.style.borderRight = '3px solid currentcolor';
+      quoteContent.style.borderLeft = 'none';
+      quoteContent.style.paddingRight = '14px';
+      quoteContent.style.paddingLeft = '0';
+    } else {
+      quoteContent.style.borderRight = 'none';
+      quoteContent.style.borderLeft = '3px solid currentcolor';
+      quoteContent.style.paddingRight = '0';
+      quoteContent.style.paddingLeft = '14px';
+    }
+  });
+
 }
 
 // Run the function on page load
-document.addEventListener('DOMContentLoaded', applyRtlToPersianText);
+document.addEventListener('DOMContentLoaded', applyRtlToPersianTextThrottled);
 
 // Run the function every time the DOM changes
-const observer = new MutationObserver(applyRtlToPersianText);
+const observer = new MutationObserver(applyRtlToPersianTextThrottled);
 observer.observe(document.body, { childList: true, subtree: true });
