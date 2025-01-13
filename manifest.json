@@ -11,5 +11,11 @@
       "matches": ["*://www.notion.so/*"],
       "js": ["content.js"]
     }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["fonts/*"],
+      "matches": ["*://www.notion.so/*"]
+    }
   ]
 }
